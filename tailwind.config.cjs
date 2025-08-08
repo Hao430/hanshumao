@@ -53,6 +53,13 @@ module.exports = {
           accent: withOpacity("--color-accent"),
         },
       },
+      gradientColorStops: {
+        skin: {
+          fill: withOpacity("--color-fill"),
+          accent: withOpacity("--color-accent"),
+          "card-muted": withOpacity("--color-card-muted"),
+        },
+      },
       fill: {
         skin: {
           base: withOpacity("--color-text-base"),

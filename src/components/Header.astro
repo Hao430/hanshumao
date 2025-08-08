@@ -10,11 +10,19 @@ export interface Props {
 const { activeNav } = Astro.props;
 ---
 
-<header class="sticky top-0 z-40 glass border-b border-white/20">
-  <a id="skip-to-content" href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 glass px-4 py-2 rounded-lg text-skin-accent">跳转到内容</a>
+<header class="glass sticky top-0 z-40 border-b border-white/20">
+  <a
+    id="skip-to-content"
+    href="#main-content"
+    class="glass sr-only rounded-lg px-4 py-2 text-skin-accent focus:not-sr-only focus:absolute focus:left-4 focus:top-4"
+    >跳转到内容</a
+  >
   <div class="nav-container">
     <div class="top-nav-wrap">
-      <a href="/" class="logo whitespace-nowrap text-2xl font-bold gradient-text hover:scale-105 transition-transform duration-300">
+      <a
+        href="/"
+        class="logo gradient-text whitespace-nowrap text-2xl font-bold transition-transform duration-300 hover:scale-105"
+      >
         {
           LOGO_IMAGE.enable ? (
             <img
@@ -22,7 +30,7 @@ const { activeNav } = Astro.props;
               alt={SITE.title}
               width={LOGO_IMAGE.width}
               height={LOGO_IMAGE.height}
-              class="hover:scale-110 transition-transform duration-300"
+              class="transition-transform duration-300 hover:scale-110"
             />
           ) : (
             SITE.title
@@ -31,7 +39,7 @@ const { activeNav } = Astro.props;
       </a>
       <nav id="nav-menu">
         <button
-          class="hamburger-menu focus-outline glass rounded-lg p-2 hover:bg-skin-accent hover:text-white transition-all duration-300"
+          class="hamburger-menu focus-outline glass rounded-lg p-2 transition-all duration-300 hover:bg-skin-accent hover:text-white"
           aria-label="打开菜单"
           aria-expanded="false"
           aria-controls="menu-items"
@@ -55,26 +63,35 @@ const { activeNav } = Astro.props;
             <line x1="6" y1="6" x2="18" y2="18" class="close"></line>
           </svg>
         </button>
-        <ul id="menu-items" class="display-none sm:flex items-center gap-6">
+        <ul id="menu-items" class="display-none items-center gap-6 sm:flex">
           <li>
-            <a href="/posts/" class={`nav-link ${activeNav === "posts" ? "active" : ""}`}>
+            <a
+              href="/posts/"
+              class={`nav-link ${activeNav === "posts" ? "active" : ""}`}
+            >
               文章
             </a>
           </li>
           <li>
-            <a href="/tags/" class={`nav-link ${activeNav === "tags" ? "active" : ""}`}>
+            <a
+              href="/tags/"
+              class={`nav-link ${activeNav === "tags" ? "active" : ""}`}
+            >
               标签
             </a>
           </li>
           <li>
-            <a href="/about/" class={`nav-link ${activeNav === "about" ? "active" : ""}`}>
+            <a
+              href="/about/"
+              class={`nav-link ${activeNav === "about" ? "active" : ""}`}
+            >
               关于
             </a>
           </li>
           <li>
             <LinkButton
               href="/search/"
-              className={`focus-outline p-3 sm:p-2 glass rounded-lg hover:bg-skin-accent hover:text-white transition-all duration-300 ${
+              className={`focus-outline glass rounded-lg p-3 transition-all duration-300 hover:bg-skin-accent hover:text-white sm:p-2 ${
                 activeNav === "search" ? "active" : ""
               } flex`}
               ariaLabel="搜索"
@@ -95,7 +112,7 @@ const { activeNav } = Astro.props;
               <li>
                 <button
                   id="theme-btn"
-                  class="focus-outline glass rounded-lg p-2 hover:bg-skin-accent hover:text-white transition-all duration-300"
+                  class="focus-outline glass rounded-lg p-2 transition-all duration-300 hover:bg-skin-accent hover:text-white"
                   title="切换明暗主题"
                   aria-label="自动"
                   aria-live="polite"
@@ -114,7 +131,7 @@ const { activeNav } = Astro.props;
                     stroke-linecap="round"
                     stroke-linejoin="round"
                   >
-                    <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+                    <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
                   </svg>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -130,15 +147,15 @@ const { activeNav } = Astro.props;
                     stroke-linecap="round"
                     stroke-linejoin="round"
                   >
-                    <circle cx="12" cy="12" r="4"></circle>
-                    <path d="M12 2v2"></path>
-                    <path d="M12 20v2"></path>
-                    <path d="m4.93 4.93 1.41 1.41"></path>
-                    <path d="m17.66 17.66 1.41 1.41"></path>
-                    <path d="M2 12h2"></path>
-                    <path d="M20 12h2"></path>
-                    <path d="m6.34 17.66-1.41 1.41"></path>
-                    <path d="m19.07 4.93-1.41 1.41"></path>
+                    <circle cx="12" cy="12" r="4" />
+                    <path d="M12 2v2" />
+                    <path d="M12 20v2" />
+                    <path d="m4.93 4.93 1.41 1.41" />
+                    <path d="m17.66 17.66 1.41 1.41" />
+                    <path d="M2 12h2" />
+                    <path d="M20 12h2" />
+                    <path d="m6.34 17.66-1.41 1.41" />
+                    <path d="m19.07 4.93-1.41 1.41" />
                   </svg>
                 </button>
               </li>
@@ -153,72 +170,76 @@ const { activeNav } = Astro.props;
 
 <style>
   header {
-    @apply backdrop-blur-md bg-white/10 border-b border-white/20;
+    @apply border-b border-white/20 bg-white/10 backdrop-blur-md;
   }
-  
+
   .nav-container {
     @apply mx-auto max-w-4xl px-4;
   }
-  
+
   .top-nav-wrap {
     @apply flex items-center justify-between py-4;
   }
-  
+
   .logo {
-    @apply text-2xl font-bold hover:scale-105 transition-transform duration-300;
+    @apply text-2xl font-bold transition-transform duration-300 hover:scale-105;
     background: linear-gradient(to right, #6366f1, #8b5cf6, #ec4899);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
-  
+
   .nav-link {
-    @apply px-4 py-2 rounded-lg text-skin-base hover:text-skin-accent hover:bg-skin-accent/10 transition-all duration-300 font-medium;
+    @apply rounded-lg px-4 py-2 font-medium text-skin-base transition-all duration-300 hover:bg-skin-accent/10 hover:text-skin-accent;
   }
-  
+
   .nav-link.active {
-    @apply text-skin-accent bg-skin-accent/10 font-semibold;
+    @apply bg-skin-accent/10 font-semibold text-skin-accent;
   }
-  
+
   .hamburger-menu {
     @apply sm:hidden;
   }
-  
+
   #menu-items {
     @apply sm:flex sm:items-center sm:gap-6;
   }
-  
+
   @media (max-width: 640px) {
     #menu-items {
-      @apply absolute top-full left-0 right-0 glass border-b border-white/20 flex-col gap-0;
+      @apply absolute left-0 right-0 top-full flex-col gap-0 border-b border-white/20;
+      backdrop-filter: blur(12px);
+      background-color: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
     }
-    
+
     #menu-items li {
       @apply w-full;
     }
-    
+
     #menu-items a,
     #menu-items button {
-      @apply w-full px-4 py-3 text-left border-b border-white/10 last:border-b-0;
+      @apply w-full border-b border-white/10 px-4 py-3 text-left last:border-b-0;
     }
   }
-  
+
   .menu-icon {
     @apply transition-all duration-300;
   }
-  
+
   .menu-icon .line {
     @apply transition-all duration-300;
   }
-  
+
   .menu-icon .close {
     @apply opacity-0 transition-all duration-300;
   }
-  
+
   .menu-icon.active .line {
     @apply opacity-0;
   }
-  
+
   .menu-icon.active .close {
     @apply opacity-100;
   }
@@ -237,8 +258,11 @@ const { activeNav } = Astro.props;
   });
 
   // 关闭移动端菜单当点击外部
-  document.addEventListener("click", (e) => {
-    if (!hamburgerMenu?.contains(e.target as Node) && !menuItems?.contains(e.target as Node)) {
+  document.addEventListener("click", e => {
+    if (
+      !hamburgerMenu?.contains(e.target as Node) &&
+      !menuItems?.contains(e.target as Node)
+    ) {
       hamburgerMenu?.setAttribute("aria-expanded", "false");
       menuItems?.classList.add("display-none");
       menuIcon?.classList.remove("active");

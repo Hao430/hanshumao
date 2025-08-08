@@ -78,16 +78,16 @@
   .prose {
     @apply prose-headings:!mb-4 prose-headings:!text-skin-base 
     prose-h3:italic prose-p:!text-skin-base prose-p:leading-relaxed
-    prose-a:!text-skin-accent prose-a:!decoration-none prose-a:underline-offset-4
+    prose-a:!text-skin-accent prose-a:underline-offset-4
     hover:prose-a:text-skin-accent hover:prose-a:underline prose-blockquote:!border-l-skin-accent
-    prose-blockquote:border-opacity-50 prose-blockquote:opacity-80 prose-blockquote:glass
+    prose-blockquote:border-opacity-50 prose-blockquote:opacity-80
     prose-figcaption:!text-skin-base prose-figcaption:opacity-70
     prose-strong:!text-skin-base prose-strong:font-semibold
     prose-code:rounded-lg prose-code:bg-skin-card prose-code:bg-opacity-75 prose-code:p-2 
     prose-code:before:!content-none prose-code:after:!content-none prose-code:text-sm
     prose-ol:!text-skin-base prose-ol:space-y-2
     prose-ul:overflow-x-clip prose-ul:!text-skin-base prose-ul:space-y-2 prose-li:marker:!text-skin-accent
-    prose-table:text-skin-base prose-th:border prose-th:border-skin-line prose-th:glass
+    prose-table:text-skin-base prose-th:border prose-th:border-skin-line
     prose-td:border prose-td:border-skin-line prose-img:!my-4 
     prose-img:mx-auto prose-img:rounded-xl prose-img:shadow-lg prose-img:border-2 
     prose-img:border-skin-line prose-hr:!border-skin-line prose-hr:my-8;
@@ -161,11 +161,31 @@
   
   /* 动画效果 */
   .fade-in {
-    @apply animate-in fade-in duration-500;
+    animation: fadeIn 0.5s ease-in-out;
   }
   
   .slide-in {
-    @apply animate-in slide-in-from-bottom-4 duration-500;
+    animation: slideInFromBottom 0.5s ease-in-out;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes slideInFromBottom {
+    from {
+      opacity: 0;
+      transform: translateY(1rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
   
   /* 卡片悬停效果 */
