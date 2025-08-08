@@ -37,13 +37,19 @@ module.exports = {
       },
       outlineColor: {
         skin: {
-          fill: withOpacity("--color-accent"),
+          fill: withOpacity("--color-fill"),
+          accent: withOpacity("--color-accent"),
         },
       },
       borderColor: {
         skin: {
           line: withOpacity("--color-border"),
           fill: withOpacity("--color-text-base"),
+          accent: withOpacity("--color-accent"),
+        },
+      },
+      ringColor: {
+        skin: {
           accent: withOpacity("--color-accent"),
         },
       },
