@@ -69,7 +69,10 @@
   }
   
   .gradient-text {
-    @apply bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent;
+    background: linear-gradient(to right, #6366f1, #8b5cf6, #ec4899);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
   
   .prose {
@@ -98,7 +101,11 @@
     padding-left: 0.5714286em;
   }
   .prose h2#table-of-contents {
-    @apply mb-4 text-xl font-bold gradient-text;
+    @apply mb-4 text-xl font-bold;
+    background: linear-gradient(to right, #6366f1, #8b5cf6, #ec4899);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
   .prose details {
     @apply inline-block cursor-pointer select-none text-skin-base glass rounded-lg p-4;

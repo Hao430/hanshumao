@@ -122,7 +122,11 @@ const layoutProps = {
   }
   
   :global(.prose h1) {
-    @apply text-3xl font-bold gradient-text mb-6;
+    @apply text-3xl font-bold mb-6;
+    background: linear-gradient(to right, #6366f1, #8b5cf6, #ec4899);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
   
   :global(.prose h2) {
