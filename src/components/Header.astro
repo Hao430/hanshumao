@@ -10,11 +10,11 @@ export interface Props {
 const { activeNav } = Astro.props;
 ---
 
-<header>
-  <a id="skip-to-content" href="#main-content">Skip to content</a>
+<header class="sticky top-0 z-40 glass border-b border-white/20">
+  <a id="skip-to-content" href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 glass px-4 py-2 rounded-lg text-skin-accent">跳转到内容</a>
   <div class="nav-container">
     <div class="top-nav-wrap">
-      <a href="/" class="logo whitespace-nowrap">
+      <a href="/" class="logo whitespace-nowrap text-2xl font-bold gradient-text hover:scale-105 transition-transform duration-300">
         {
           LOGO_IMAGE.enable ? (
             <img
@@ -22,6 +22,7 @@ const { activeNav } = Astro.props;
               alt={SITE.title}
               width={LOGO_IMAGE.width}
               height={LOGO_IMAGE.height}
+              class="hover:scale-110 transition-transform duration-300"
             />
           ) : (
             SITE.title
@@ -30,8 +31,8 @@ const { activeNav } = Astro.props;
       </a>
       <nav id="nav-menu">
         <button
-          class="hamburger-menu focus-outline"
-          aria-label="Open Menu"
+          class="hamburger-menu focus-outline glass rounded-lg p-2 hover:bg-skin-accent hover:text-white transition-all duration-300"
+          aria-label="打开菜单"
           aria-expanded="false"
           aria-controls="menu-items"
         >
@@ -54,30 +55,30 @@ const { activeNav } = Astro.props;
             <line x1="6" y1="6" x2="18" y2="18" class="close"></line>
           </svg>
         </button>
-        <ul id="menu-items" class="display-none sm:flex">
+        <ul id="menu-items" class="display-none sm:flex items-center gap-6">
           <li>
-            <a href="/posts/" class={activeNav === "posts" ? "active" : ""}>
-              Posts
+            <a href="/posts/" class={`nav-link ${activeNav === "posts" ? "active" : ""}`}>
+              文章
             </a>
           </li>
           <li>
-            <a href="/tags/" class={activeNav === "tags" ? "active" : ""}>
-              Tags
+            <a href="/tags/" class={`nav-link ${activeNav === "tags" ? "active" : ""}`}>
+              标签
             </a>
           </li>
           <li>
-            <a href="/about/" class={activeNav === "about" ? "active" : ""}>
-              About
+            <a href="/about/" class={`nav-link ${activeNav === "about" ? "active" : ""}`}>
+              关于
             </a>
           </li>
           <li>
             <LinkButton
               href="/search/"
-              className={`focus-outline p-3 sm:p-1 ${
+              className={`focus-outline p-3 sm:p-2 glass rounded-lg hover:bg-skin-accent hover:text-white transition-all duration-300 ${
                 activeNav === "search" ? "active" : ""
               } flex`}
-              ariaLabel="search"
-              title="Search"
+              ariaLabel="搜索"
+              title="搜索"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -86,7 +87,7 @@ const { activeNav } = Astro.props;
                   d="M19.023 16.977a35.13 35.13 0 0 1-1.367-1.384c-.372-.378-.596-.653-.596-.653l-2.8-1.337A6.962 6.962 0 0 0 16 9c0-3.859-3.14-7-7-7S2 5.141 2 9s3.14 7 7 7c1.763 0 3.37-.66 4.603-1.739l1.337 2.8s.275.224.653.596c.387.363.896.854 1.384 1.367l1.358 1.392.604.646 2.121-2.121-.646-.604c-.379-.372-.885-.866-1.391-1.36zM9 14c-2.757 0-5-2.243-5-5s2.243-5 5-5 5 2.243 5 5-2.243 5-5 5z"
                 ></path>
               </svg>
-              <span class="sr-only">Search</span>
+              <span class="sr-only">搜索</span>
             </LinkButton>
           </li>
           {
@@ -94,16 +95,50 @@ const { activeNav } = Astro.props;
               <li>
                 <button
                   id="theme-btn"
-                  class="focus-outline"
-                  title="Toggles light & dark"
-                  aria-label="auto"
+                  class="focus-outline glass rounded-lg p-2 hover:bg-skin-accent hover:text-white transition-all duration-300"
+                  title="切换明暗主题"
+                  aria-label="自动"
                   aria-live="polite"
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" id="moon-svg">
-                    <path d="M20.742 13.045a8.088 8.088 0 0 1-2.077.271c-2.135 0-4.14-.83-5.646-2.336a8.025 8.025 0 0 1-2.064-7.723A1 1 0 0 0 9.73 2.034a10.014 10.014 0 0 0-4.489 2.582c-3.898 3.898-3.898 10.243 0 14.143a9.937 9.937 0 0 0 7.072 2.93 9.93 9.93 0 0 0 7.07-2.929 10.007 10.007 0 0 0 2.583-4.491 1.001 1.001 0 0 0-1.224-1.224zm-2.772 4.301a7.947 7.947 0 0 1-5.656 2.343 7.953 7.953 0 0 1-5.658-2.344c-3.118-3.119-3.118-8.195 0-11.314a7.923 7.923 0 0 1 2.06-1.483 10.027 10.027 0 0 0 2.89 7.848 9.972 9.972 0 0 0 7.848 2.891 8.036 8.036 0 0 1-1.484 2.059z" />
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true"
+                    id="moon-svg"
+                    class="astro-moon"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
                   </svg>
-                  <svg xmlns="http://www.w3.org/2000/svg" id="sun-svg">
-                    <path d="M6.993 12c0 2.761 2.246 5.007 5.007 5.007s5.007-2.246 5.007-5.007S14.761 6.993 12 6.993 6.993 9.239 6.993 12zM12 8.993c1.658 0 3.007 1.349 3.007 3.007S13.658 15.007 12 15.007 8.993 13.658 8.993 12 10.342 8.993 12 8.993zM10.998 19h2v3h-2zm0-17h2v3h-2zm-9 9h3v2h-3zm17 0h3v2h-3zM4.219 18.363l2.12-2.122 1.415 1.414-2.12 2.122zM16.24 6.344l2.122-2.122 1.414 1.414-2.122 2.122zM6.342 7.759 4.22 5.637l1.415-1.414 2.12 2.122zm13.434 10.605-1.414 1.414-2.122-2.122 1.414-1.414z" />
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true"
+                    id="sun-svg"
+                    class="astro-sun"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <circle cx="12" cy="12" r="4"></circle>
+                    <path d="M12 2v2"></path>
+                    <path d="M12 20v2"></path>
+                    <path d="m4.93 4.93 1.41 1.41"></path>
+                    <path d="m17.66 17.66 1.41 1.41"></path>
+                    <path d="M2 12h2"></path>
+                    <path d="M20 12h2"></path>
+                    <path d="m6.34 17.66-1.41 1.41"></path>
+                    <path d="m19.07 4.93-1.41 1.41"></path>
                   </svg>
                 </button>
               </li>
@@ -117,99 +152,92 @@ const { activeNav } = Astro.props;
 </header>
 
 <style>
-  #skip-to-content {
-    @apply absolute -top-full left-16 z-50 bg-skin-accent px-3 py-2 text-skin-inverted transition-all focus:top-4;
+  header {
+    @apply backdrop-blur-md bg-white/10 border-b border-white/20;
   }
+  
   .nav-container {
-    @apply mx-auto flex max-w-3xl flex-col items-center justify-between sm:flex-row;
+    @apply mx-auto max-w-4xl px-4;
   }
+  
   .top-nav-wrap {
-    @apply relative flex w-full items-start justify-between p-4 sm:items-center sm:py-8;
+    @apply flex items-center justify-between py-4;
   }
+  
   .logo {
-    @apply absolute py-1 text-xl font-semibold sm:static sm:text-2xl;
+    @apply text-2xl font-bold gradient-text hover:scale-105 transition-transform duration-300;
   }
+  
+  .nav-link {
+    @apply px-4 py-2 rounded-lg text-skin-base hover:text-skin-accent hover:bg-skin-accent/10 transition-all duration-300 font-medium;
+  }
+  
+  .nav-link.active {
+    @apply text-skin-accent bg-skin-accent/10 font-semibold;
+  }
+  
   .hamburger-menu {
-    @apply self-end p-2 sm:hidden;
+    @apply sm:hidden;
   }
-  .hamburger-menu svg {
-    @apply h-6 w-6 scale-125 fill-skin-base;
+  
+  #menu-items {
+    @apply sm:flex sm:items-center sm:gap-6;
   }
-
-  nav {
-    @apply flex w-full flex-col items-center sm:ml-2 sm:flex-row sm:justify-end sm:space-x-4 sm:py-0;
+  
+  @media (max-width: 640px) {
+    #menu-items {
+      @apply absolute top-full left-0 right-0 glass border-b border-white/20 flex-col gap-0;
+    }
+    
+    #menu-items li {
+      @apply w-full;
+    }
+    
+    #menu-items a,
+    #menu-items button {
+      @apply w-full px-4 py-3 text-left border-b border-white/10 last:border-b-0;
+    }
   }
-  nav ul {
-    @apply mt-4 grid w-44 grid-cols-2 grid-rows-4 gap-x-2 gap-y-2 sm:ml-0 sm:mt-0 sm:w-auto sm:gap-x-5 sm:gap-y-0;
+  
+  .menu-icon {
+    @apply transition-all duration-300;
   }
-  nav ul li {
-    @apply col-span-2 flex items-center justify-center;
+  
+  .menu-icon .line {
+    @apply transition-all duration-300;
   }
-  nav ul li a {
-    @apply w-full px-4 py-3 text-center font-medium hover:text-skin-accent sm:my-0 sm:px-2 sm:py-1;
-  }
-  nav ul li:nth-last-child(2) a {
-    @apply w-auto;
-  }
-  nav ul li:nth-last-child(1),
-  nav ul li:nth-last-child(2) {
-    @apply col-span-1;
-  }
-  nav a.active {
-    @apply underline decoration-wavy decoration-2 underline-offset-4;
-  }
-  nav a.active svg {
-    @apply fill-skin-accent;
-  }
-
-  nav button {
-    @apply p-1;
-  }
-  nav button svg {
-    @apply h-6 w-6 fill-skin-base hover:fill-skin-accent;
-  }
-  #theme-btn {
-    @apply p-3 sm:p-1;
-  }
-  #theme-btn svg {
-    @apply scale-125 hover:rotate-12 sm:scale-100;
-  }
-
-  .menu-icon line {
-    @apply transition-opacity duration-75 ease-in-out;
-  }
+  
   .menu-icon .close {
-    opacity: 0;
+    @apply opacity-0 transition-all duration-300;
   }
-  .menu-icon.is-active .line {
+  
+  .menu-icon.active .line {
     @apply opacity-0;
   }
-  .menu-icon.is-active .close {
+  
+  .menu-icon.active .close {
     @apply opacity-100;
   }
 </style>
 
-<script>
-  function toggleNav() {
-    // Toggle menu
-    const menuBtn = document.querySelector(".hamburger-menu");
-    const menuIcon = document.querySelector(".menu-icon");
-    const menuItems = document.querySelector("#menu-items");
+<script is:inline>
+  const hamburgerMenu = document.querySelector(".hamburger-menu");
+  const menuItems = document.querySelector("#menu-items");
+  const menuIcon = document.querySelector(".menu-icon");
 
-    menuBtn?.addEventListener("click", () => {
-      const menuExpanded = menuBtn.getAttribute("aria-expanded") === "true";
-      menuIcon?.classList.toggle("is-active");
-      menuBtn.setAttribute("aria-expanded", menuExpanded ? "false" : "true");
-      menuBtn.setAttribute(
-        "aria-label",
-        menuExpanded ? "Open Menu" : "Close Menu"
-      );
-      menuItems?.classList.toggle("display-none");
-    });
-  }
+  hamburgerMenu?.addEventListener("click", () => {
+    const isExpanded = hamburgerMenu.getAttribute("aria-expanded") === "true";
+    hamburgerMenu.setAttribute("aria-expanded", !isExpanded);
+    menuItems?.classList.toggle("display-none");
+    menuIcon?.classList.toggle("active");
+  });
 
-  toggleNav();
-
-  // Runs on view transitions navigation
-  document.addEventListener("astro:after-swap", toggleNav);
+  // 关闭移动端菜单当点击外部
+  document.addEventListener("click", (e) => {
+    if (!hamburgerMenu?.contains(e.target as Node) && !menuItems?.contains(e.target as Node)) {
+      hamburgerMenu?.setAttribute("aria-expanded", "false");
+      menuItems?.classList.add("display-none");
+      menuIcon?.classList.remove("active");
+    }
+  });
 </script>

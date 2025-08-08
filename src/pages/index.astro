@@ -22,49 +22,49 @@ const socialCount = SOCIALS.filter(social => social.active).length;
 <Layout>
   <Header />
   <main id="main-content">
-    <section id="hero">
-      <h1>Mingalaba</h1>
-      <a
-        target="_blank"
-        href="/rss.xml"
-        class="rss-link"
-        aria-label="rss feed"
-        title="RSS Feed"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" class="rss-icon"
-          ><path
-            d="M19 20.001C19 11.729 12.271 5 4 5v2c7.168 0 13 5.832 13 13.001h2z"
-          ></path><path
-            d="M12 20.001h2C14 14.486 9.514 10 4 10v2c4.411 0 8 3.589 8 8.001z"
-          ></path><circle cx="6" cy="18" r="2"></circle>
-        </svg>
-        <span class="sr-only">RSS Feed</span>
-      </a>
-
-      <p>
-        AstroPaper is a minimal, responsive, accessible and SEO-friendly Astro
-        blog theme. This theme follows best practices and provides accessibility
-        out of the box. Light and dark mode are supported by default. Moreover,
-        additional color schemes can also be configured.
-      </p>
-      <p>
-        Read the blog posts or check
-        <LinkButton
-          className="underline decoration-dashed underline-offset-4 hover:text-skin-accent"
-          href="https://github.com/satnaing/astro-paper#readme"
+    <section id="hero" class="fade-in">
+      <div class="hero-content glass rounded-2xl p-8 text-center">
+        <h1 class="text-5xl font-bold gradient-text mb-6">欢迎来到我的博客</h1>
+        <a
+          target="_blank"
+          href="/rss.xml"
+          class="rss-link glass rounded-lg p-2 inline-block hover:bg-skin-accent hover:text-white transition-all duration-300"
+          aria-label="RSS订阅"
+          title="RSS订阅"
         >
-          README
-        </LinkButton> for more info.
-      </p>
-      {
-        // only display if at least one social link is enabled
-        socialCount > 0 && (
-          <div class="social-wrapper">
-            <div class="social-links">Social Links:</div>
-            <Socials />
-          </div>
-        )
-      }
+          <svg xmlns="http://www.w3.org/2000/svg" class="rss-icon h-6 w-6"
+            ><path
+              d="M19 20.001C19 11.729 12.271 5 4 5v2c7.168 0 13 5.832 13 13.001h2z"
+            ></path><path
+              d="M12 20.001h2C14 14.486 9.514 10 4 10v2c4.411 0 8 3.589 8 8.001z"
+            ></path><circle cx="6" cy="18" r="2"></circle>
+          </svg>
+          <span class="sr-only">RSS订阅</span>
+        </a>
+
+        <p class="text-xl text-skin-base/80 leading-relaxed mb-6">
+          这是一个简约、响应式且SEO友好的现代化博客主题。采用最佳实践设计，
+          提供开箱即用的无障碍访问支持。默认支持明暗主题切换，还可以配置额外的配色方案。
+        </p>
+        <p class="text-lg text-skin-base/70">
+          阅读博客文章或查看
+          <LinkButton
+            className="underline decoration-dashed underline-offset-4 hover:text-skin-accent transition-colors duration-300"
+            href="https://github.com/satnaing/astro-paper#readme"
+          >
+            说明文档
+          </LinkButton> 了解更多信息。
+        </p>
+        {
+          // only display if at least one social link is enabled
+          socialCount > 0 && (
+            <div class="social-wrapper mt-8">
+              <div class="social-links text-skin-base/80 mb-4">社交媒体:</div>
+              <Socials />
+            </div>
+          )
+        }
+      </div>
     </section>
 
     <Hr />
@@ -72,9 +72,12 @@ const socialCount = SOCIALS.filter(social => social.active).length;
     {
       featuredPosts.length > 0 && (
         <>
-          <section id="featured">
-            <h2>Featured</h2>
-            <ul>
+          <section id="featured" class="slide-in">
+            <div class="section-header glass rounded-xl p-6 mb-8">
+              <h2 class="text-3xl font-bold gradient-text">精选文章</h2>
+              <p class="text-skin-base/70 mt-2">值得一读的优质内容</p>
+            </div>
+            <ul class="space-y-6">
               {featuredPosts.map(({ data, slug }) => (
                 <Card
                   href={`/posts/${slug}/`}
@@ -91,9 +94,12 @@ const socialCount = SOCIALS.filter(social => social.active).length;
 
     {
       recentPosts.length > 0 && (
-        <section id="recent-posts">
-          <h2>Recent Posts</h2>
-          <ul>
+        <section id="recent-posts" class="slide-in">
+          <div class="section-header glass rounded-xl p-6 mb-8">
+            <h2 class="text-3xl font-bold gradient-text">最新文章</h2>
+            <p class="text-skin-base/70 mt-2">最近发布的博客文章</p>
+          </div>
+          <ul class="space-y-6">
             {recentPosts.map(
               ({ data, slug }, index) =>
                 index < SITE.postPerIndex && (
@@ -105,59 +111,51 @@ const socialCount = SOCIALS.filter(social => social.active).length;
                 )
             )}
           </ul>
+          {
+            recentPosts.length > SITE.postPerIndex && (
+              <div class="text-center mt-8">
+                <LinkButton
+                  href="/posts/"
+                  className="btn-primary"
+                >
+                  查看所有文章
+                </LinkButton>
+              </div>
+            )
+          }
         </section>
       )
     }
-
-    <div class="all-posts-btn-wrapper">
-      <LinkButton href="/posts/">
-        All Posts
-        <svg xmlns="http://www.w3.org/2000/svg"
-          ><path
-            d="m11.293 17.293 1.414 1.414L19.414 12l-6.707-6.707-1.414 1.414L15.586 11H6v2h9.586z"
-          ></path>
-        </svg>
-      </LinkButton>
-    </div>
   </main>
-
   <Footer />
 </Layout>
 
 <style>
-  /* ===== Hero Section ===== */
   #hero {
-    @apply pb-6 pt-8;
+    @apply mb-8;
   }
-  #hero h1 {
-    @apply my-4 inline-block text-3xl font-bold sm:my-8 sm:text-5xl;
+  
+  .hero-content {
+    @apply max-w-4xl mx-auto;
   }
-  #hero .rss-link {
+  
+  .section-header {
+    @apply text-center;
+  }
+  
+  .social-wrapper {
+    @apply flex flex-col items-center;
+  }
+  
+  .social-links {
+    @apply text-lg font-medium;
+  }
+  
+  .rss-link {
     @apply mb-6;
   }
-  #hero .rss-icon {
-    @apply mb-2 h-6 w-6 scale-110 fill-skin-accent sm:mb-3 sm:scale-125;
-  }
-  #hero p {
-    @apply my-2;
-  }
-  .social-wrapper {
-    @apply mt-4 flex flex-col sm:flex-row sm:items-center;
-  }
-  .social-links {
-    @apply mb-1 mr-2 whitespace-nowrap sm:mb-0;
-  }
-
-  /* ===== Featured & Recent Posts Sections ===== */
-  #featured,
-  #recent-posts {
-    @apply pb-6 pt-12;
-  }
-  #featured h2,
-  #recent-posts h2 {
-    @apply text-2xl font-semibold tracking-wide;
-  }
-  .all-posts-btn-wrapper {
-    @apply my-8 text-center;
+  
+  .rss-icon {
+    @apply fill-current;
   }
 </style>

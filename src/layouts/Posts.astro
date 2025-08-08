@@ -17,10 +17,15 @@ export interface Props {
 const { currentPage, totalPages, paginatedPosts } = Astro.props;
 ---
 
-<Layout title={`Posts | ${SITE.title}`}>
+<Layout title={`文章 | ${SITE.title}`}>
   <Header activeNav="posts" />
-  <Main pageTitle="Posts" pageDesc="All the articles I've posted.">
-    <ul>
+  <Main pageTitle="所有文章" pageDesc="我发布的所有博客文章">
+    <div class="posts-header glass rounded-xl p-6 mb-8 text-center">
+      <h1 class="text-3xl font-bold gradient-text mb-2">所有文章</h1>
+      <p class="text-skin-base/70">共 {paginatedPosts.length} 篇文章</p>
+    </div>
+    
+    <ul class="space-y-6">
       {
         paginatedPosts.map(({ data, slug }) => (
           <Card href={`/posts/${slug}/`} frontmatter={data} />
@@ -38,3 +43,9 @@ const { currentPage, totalPages, paginatedPosts } = Astro.props;
 
   <Footer noMarginTop={totalPages > 1} />
 </Layout>
+
+<style>
+  .posts-header {
+    @apply max-w-4xl mx-auto;
+  }
+</style>

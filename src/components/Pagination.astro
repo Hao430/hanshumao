@@ -18,43 +18,53 @@ const isNextDisabled = next === "disabled";
 
 {
   totalPages > 1 && (
-    <nav class="pagination-wrapper" aria-label="Pagination">
-      <LinkButton
-        disabled={isPrevDisabled}
-        href={prevUrl}
-        className={`mr-4 select-none ${prev}`}
-        ariaLabel="Previous"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class:list={[{ "disabled-svg": isPrevDisabled }]}
+    <nav class="pagination-wrapper glass rounded-xl p-4" aria-label="分页导航">
+      <div class="flex items-center justify-between gap-4">
+        <LinkButton
+          disabled={isPrevDisabled}
+          href={prevUrl}
+          className={`btn-secondary ${prev} flex items-center gap-2`}
+          ariaLabel="上一页"
         >
-          <path d="M12.707 17.293 8.414 13H18v-2H8.414l4.293-4.293-1.414-1.414L4.586 12l6.707 6.707z" />
-        </svg>
-        Prev
-      </LinkButton>
-      {currentPage} / {totalPages}
-      <LinkButton
-        disabled={isNextDisabled}
-        href={nextUrl}
-        className={`ml-4 select-none ${next}`}
-        ariaLabel="Next"
-      >
-        Next
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class:list={[{ "disabled-svg": isNextDisabled }]}
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5"
+            class:list={[{ "disabled-svg": isPrevDisabled }]}
+          >
+            <path d="M12.707 17.293 8.414 13H18v-2H8.414l4.293-4.293-1.414-1.414L4.586 12l6.707 6.707z" />
+          </svg>
+          上一页
+        </LinkButton>
+        
+        <div class="flex items-center gap-2 text-skin-base/80">
+          <span class="font-medium">第 {currentPage} 页</span>
+          <span class="text-skin-base/40">/</span>
+          <span class="font-medium">共 {totalPages} 页</span>
+        </div>
+        
+        <LinkButton
+          disabled={isNextDisabled}
+          href={nextUrl}
+          className={`btn-secondary ${next} flex items-center gap-2`}
+          ariaLabel="下一页"
         >
-          <path d="m11.293 17.293 1.414 1.414L19.414 12l-6.707-6.707-1.414 1.414L15.586 11H6v2h9.586z" />
-        </svg>
-      </LinkButton>
+          下一页
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5"
+            class:list={[{ "disabled-svg": isNextDisabled }]}
+          >
+            <path d="m11.293 17.293 1.414 1.414L19.414 12l-6.707-6.707-1.414 1.414L15.586 11H6v2h9.586z" />
+          </svg>
+        </LinkButton>
+      </div>
     </nav>
   )
 }
 
 <style>
   .pagination-wrapper {
-    @apply mb-8 mt-auto flex justify-center;
+    @apply mb-8 mt-auto;
   }
   .disabled {
     @apply pointer-events-none select-none opacity-50 hover:text-skin-base group-hover:fill-skin-base;

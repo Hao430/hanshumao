@@ -49,51 +49,57 @@ const layoutProps = {
 <Layout {...layoutProps}>
   <Header />
 
-  <!-- <div class="progress-container fixed top-0 z-10 h-1 w-full bg-skin-fill">
-    <div class="progress-bar h-1 w-0 bg-skin-accent" id="myBar"></div>
-  </div> -->
+  <!-- 进度条 -->
+  <div class="progress-container fixed top-0 z-50 h-1 w-full bg-skin-fill/20 backdrop-blur-sm">
+    <div class="progress-bar h-1 w-0 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500" id="myBar"></div>
+  </div>
 
-  <div class="mx-auto flex w-full max-w-3xl justify-start px-2">
+  <!-- 返回按钮 -->
+  <div class="mx-auto flex w-full max-w-4xl justify-start px-4">
     <button
-      class="focus-outline mb-2 mt-8 flex hover:opacity-75"
+      class="focus-outline mb-4 mt-8 flex items-center gap-2 glass rounded-lg px-4 py-2 hover:bg-skin-accent hover:text-white transition-all duration-300"
       onclick="(() => (history.length === 1) ? window.location = '/' : history.back())()"
     >
-      <svg xmlns="http://www.w3.org/2000/svg"
-        ><path
-          d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
-        ></path>
-      </svg><span>Go back</span>
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5">
+        <path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"></path>
+      </svg>
+      <span>返回</span>
     </button>
   </div>
-  <main id="main-content">
-    <h1 transition:name={slugifyStr(title)} class="post-title">{title}</h1>
-    <Datetime
-      pubDatetime={pubDatetime}
-      modDatetime={modDatetime}
-      size="lg"
-      className="my-2"
-    />
-    <article id="article" class="prose mx-auto mt-8 max-w-3xl">
+
+  <main id="main-content" class="fade-in">
+    <!-- 文章标题区域 -->
+    <div class="glass rounded-2xl p-8 mb-8 text-center">
+      <h1 class="post-title gradient-text mb-4">{title}</h1>
+      <p class="text-skin-base/80 text-lg mb-4">{description}</p>
+      <Datetime
+        pubDatetime={pubDatetime}
+        modDatetime={modDatetime}
+        size="lg"
+        className="my-2"
+      />
+    </div>
+
+    <!-- 文章内容 -->
+    <article id="article" class="prose mx-auto mt-8 max-w-4xl glass rounded-2xl p-8">
       <Content />
     </article>
 
-    <ul class="my-8">
+    <!-- 标签区域 -->
+    <div class="my-8 flex flex-wrap gap-2 justify-center">
       {tags.map(tag => <Tag tag={slugifyStr(tag)} />)}
-    </ul>
+    </div>
 
-    <div
-      class="flex flex-col-reverse items-center justify-between gap-6 sm:flex-row-reverse sm:items-end sm:gap-4"
-    >
+    <!-- 底部操作区域 -->
+    <div class="flex flex-col-reverse items-center justify-between gap-6 sm:flex-row-reverse sm:items-end sm:gap-4 glass rounded-xl p-6">
       <button
         id="back-to-top"
-        class="focus-outline whitespace-nowrap py-1 hover:opacity-75"
+        class="focus-outline whitespace-nowrap py-2 px-4 glass rounded-lg hover:bg-skin-accent hover:text-white transition-all duration-300 flex items-center gap-2"
       >
-        <svg xmlns="http://www.w3.org/2000/svg" class="rotate-90">
-          <path
-            d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
-          ></path>
+        <svg xmlns="http://www.w3.org/2000/svg" class="rotate-90 h-5 w-5">
+          <path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"></path>
         </svg>
-        <span>Back to Top</span>
+        <span>回到顶部</span>
       </button>
 
       <ShareLinks />
@@ -104,44 +110,67 @@ const layoutProps = {
 
 <style>
   main {
-    @apply mx-auto w-full max-w-3xl px-4 pb-12;
+    @apply mx-auto w-full max-w-4xl px-4 pb-12;
   }
   .post-title {
-    @apply text-2xl font-semibold text-skin-accent;
+    @apply text-4xl font-bold leading-tight;
+  }
+  
+  /* 文章内容样式增强 */
+  :global(.prose) {
+    @apply text-lg leading-relaxed;
+  }
+  
+  :global(.prose h1) {
+    @apply text-3xl font-bold gradient-text mb-6;
+  }
+  
+  :global(.prose h2) {
+    @apply text-2xl font-semibold text-skin-base mb-4 mt-8;
+  }
+  
+  :global(.prose h3) {
+    @apply text-xl font-medium text-skin-base mb-3 mt-6;
+  }
+  
+  :global(.prose p) {
+    @apply mb-4 text-skin-base/90;
+  }
+  
+  :global(.prose blockquote) {
+    @apply border-l-4 border-skin-accent bg-skin-card-muted/50 p-4 rounded-r-lg;
+  }
+  
+  :global(.prose code) {
+    @apply bg-skin-card px-2 py-1 rounded text-sm font-mono;
+  }
+  
+  :global(.prose pre) {
+    @apply bg-skin-card border border-skin-border;
   }
 </style>
 
 <script is:inline>
-  /** Create a progress indicator
-   *  at the top */
+  /** 创建进度条 */
   function createProgressBar() {
-    // Create the main container div
     const progressContainer = document.createElement("div");
-    progressContainer.className =
-      "progress-container fixed top-0 z-10 h-1 w-full bg-skin-fill";
+    progressContainer.className = "progress-container fixed top-0 z-50 h-1 w-full bg-skin-fill/20 backdrop-blur-sm";
 
-    // Create the progress bar div
     const progressBar = document.createElement("div");
-    progressBar.className = "progress-bar h-1 w-0 bg-skin-accent";
+    progressBar.className = "progress-bar h-1 w-0 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500";
     progressBar.id = "myBar";
 
-    // Append the progress bar to the progress container
     progressContainer.appendChild(progressBar);
-
-    // Append the progress container to the document body or any other desired parent element
     document.body.appendChild(progressContainer);
   }
   createProgressBar();
 
-  /** Update the progress bar
-   *  when user scrolls */
+  /** 更新滚动进度 */
   function updateScrollProgress() {
-    const winScroll =
-      document.body.scrollTop || document.documentElement.scrollTop;
-    const height =
-      document.documentElement.scrollHeight -
-      document.documentElement.clientHeight;
+    const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
     const scrolled = (winScroll / height) * 100;
+    
     if (document) {
       const myBar = document.getElementById("myBar");
       if (myBar) {
@@ -151,15 +180,13 @@ const layoutProps = {
   }
   document.addEventListener("scroll", updateScrollProgress);
 
-  /** Attaches links to headings in the document,
-   *  allowing sharing of sections easily */
+  /** 为标题添加链接 */
   function addHeadingLinks() {
     let headings = Array.from(document.querySelectorAll("h2, h3, h4, h5, h6"));
     for (let heading of headings) {
       heading.classList.add("group");
       const link = document.createElement("a");
-      link.className =
-        "heading-link ml-2 opacity-0 group-hover:opacity-100 focus:opacity-100";
+      link.className = "heading-link ml-2 opacity-0 group-hover:opacity-100 focus:opacity-100 text-skin-accent hover:text-skin-accent/80 transition-opacity duration-300";
       link.href = "#" + heading.id;
 
       const span = document.createElement("span");
@@ -171,10 +198,9 @@ const layoutProps = {
   }
   addHeadingLinks();
 
-  /** Attaches copy buttons to code blocks in the document,
-   * allowing users to copy code easily. */
+  /** 为代码块添加复制按钮 */
   function attachCopyButtons() {
-    let copyButtonLabel = "Copy";
+    let copyButtonLabel = "复制";
     let codeBlocks = Array.from(document.querySelectorAll("pre"));
 
     for (let codeBlock of codeBlocks) {
@@ -182,13 +208,11 @@ const layoutProps = {
       wrapper.style.position = "relative";
 
       let copyButton = document.createElement("button");
-      copyButton.className =
-        "copy-code absolute right-3 -top-3 rounded bg-skin-card px-2 py-1 text-xs leading-4 text-skin-base font-medium";
+      copyButton.className = "copy-code absolute right-3 -top-3 rounded-lg bg-skin-accent px-3 py-1 text-xs leading-4 text-white font-medium hover:bg-skin-accent/80 transition-colors duration-300";
       copyButton.innerHTML = copyButtonLabel;
       codeBlock.setAttribute("tabindex", "0");
       codeBlock.appendChild(copyButton);
 
-      // wrap codebock with relative parent element
       codeBlock?.parentNode?.insertBefore(wrapper, codeBlock);
       wrapper.appendChild(codeBlock);
 
@@ -202,9 +226,7 @@ const layoutProps = {
       let text = code?.innerText;
 
       await navigator.clipboard.writeText(text ?? "");
-
-      // visual feedback that task is completed
-      button.innerText = "Copied";
+      button.innerText = "已复制";
 
       setTimeout(() => {
         button.innerText = copyButtonLabel;
@@ -213,12 +235,11 @@ const layoutProps = {
   }
   attachCopyButtons();
 
-  /** Scrolls the document to the top when
-   * the "Back to Top" button is clicked. */
+  /** 回到顶部功能 */
   function backToTop() {
     document.querySelector("#back-to-top")?.addEventListener("click", () => {
-      document.body.scrollTop = 0; // For Safari
-      document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
     });
   }
   backToTop();

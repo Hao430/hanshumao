@@ -18,26 +18,26 @@ export default function Datetime({
 }: Props) {
   return (
     <div
-      className={`flex items-center space-x-2 opacity-80 ${className}`.trim()}
+      className={`flex items-center space-x-2 text-skin-base/70 ${className}`.trim()}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         className={`${
           size === "sm" ? "scale-90" : "scale-100"
-        } inline-block h-6 w-6 min-w-[1.375rem] fill-skin-base`}
+        } inline-block h-5 w-5 min-w-[1.375rem] fill-current`}
         aria-hidden="true"
       >
         <path d="M7 11h2v2H7zm0 4h2v2H7zm4-4h2v2h-2zm0 4h2v2h-2zm4-4h2v2h-2zm0 4h2v2h-2z"></path>
         <path d="M5 22h14c1.103 0 2-.897 2-2V6c0-1.103-.897-2-2-2h-2V2h-2v2H9V2H7v2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2zM19 8l.001 12H5V8h14z"></path>
       </svg>
       {modDatetime && modDatetime > pubDatetime ? (
-        <span className={`italic ${size === "sm" ? "text-sm" : "text-base"}`}>
-          Updated:
+        <span className={`${size === "sm" ? "text-sm" : "text-base"} font-medium`}>
+          更新于:
         </span>
       ) : (
-        <span className="sr-only">Published:</span>
+        <span className="sr-only">发布于:</span>
       )}
-      <span className={`italic ${size === "sm" ? "text-sm" : "text-base"}`}>
+      <span className={`${size === "sm" ? "text-sm" : "text-base"}`}>
         <FormattedDatetime
           pubDatetime={pubDatetime}
           modDatetime={modDatetime}
@@ -52,23 +52,23 @@ const FormattedDatetime = ({ pubDatetime, modDatetime }: DatetimesProps) => {
     modDatetime && modDatetime > pubDatetime ? modDatetime : pubDatetime
   );
 
-  const date = myDatetime.toLocaleDateString(LOCALE.langTag, {
+  const date = myDatetime.toLocaleDateString('zh-CN', {
     year: "numeric",
-    month: "short",
+    month: "long",
     day: "numeric",
   });
 
-  const time = myDatetime.toLocaleTimeString(LOCALE.langTag, {
+  const time = myDatetime.toLocaleTimeString('zh-CN', {
     hour: "2-digit",
     minute: "2-digit",
   });
 
   return (
     <>
-      <time dateTime={myDatetime.toISOString()}>{date}</time>
-      <span aria-hidden="true"> | </span>
-      <span className="sr-only">&nbsp;at&nbsp;</span>
-      <span className="text-nowrap">{time}</span>
+      <time dateTime={myDatetime.toISOString()} className="font-medium">{date}</time>
+      <span aria-hidden="true" className="mx-2 text-skin-base/40">·</span>
+      <span className="sr-only">&nbsp;于&nbsp;</span>
+      <span className="text-nowrap text-skin-base/60">{time}</span>
     </>
   );
 };
